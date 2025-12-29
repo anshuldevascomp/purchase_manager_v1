@@ -11,6 +11,7 @@ import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { HomeComponent } from './pages/home/home.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { TermsndcondComponent } from './pages/termsndcond/termsndcond.component';
+import { ContactUsComponent } from './pages/contact-us/contact-us.component';
 import { LoginGuard } from './Login-guard';
 
 const routes: Routes = [
@@ -28,6 +29,7 @@ const routes: Routes = [
       { path: 'home', redirectTo: 'superchamp', pathMatch: 'full' },
       { path: 'profile', component: ProfileComponent },
       { path: 'termsndcond', component: TermsndcondComponent },
+      { path: 'contact-us', component: ContactUsComponent },
     ]
   },
 

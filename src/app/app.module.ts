@@ -19,6 +19,7 @@ import { RouterModule } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { TermsndcondComponent } from './pages/termsndcond/termsndcond.component';
+import { ContactUsComponent } from './pages/contact-us/contact-us.component';
 
 
 // import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -39,7 +40,8 @@ import { TermsndcondComponent } from './pages/termsndcond/termsndcond.component'
     NotFoundComponent,
     HomeComponent,
     ProfileComponent,
-    TermsndcondComponent
+    TermsndcondComponent,
+    ContactUsComponent
   ],
   imports: [
     BrowserModule,
