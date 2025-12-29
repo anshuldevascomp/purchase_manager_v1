@@ -48,7 +48,7 @@
         <!-- Contact Form -->
         <div>
             <h2 class="text-xl font-semibold text-gray-800 mb-4">Send us a message</h2>
-            <form>
+            <form (ngSubmit)="onSubmit()">
                 <div class="mb-4">
                     <label for="name" class="block text-gray-700 text-sm font-bold mb-2">Name</label>
                     <input type="text" id="name" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Your Name">
@@ -61,10 +61,25 @@
                     <label for="message" class="block text-gray-700 text-sm font-bold mb-2">Message</label>
                     <textarea id="message" rows="4" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Your Message"></textarea>
                 </div>
+
+                <!-- CAPTCHA Section -->
+                <div class="mb-4">
+                  <label for="captcha" class="block text-gray-700 text-sm font-bold mb-2">Security Check: What is {{num1}} + {{num2}}?</label>
+                  <div class="flex items-center">
+                    <input type="number" id="captcha" [(ngModel)]="userCaptchaAnswer" name="captcha" class="shadow appearance-none border rounded w-1/2 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Answer">
+                    <button type="button" (click)="generateCaptcha()" class="ml-2 text-sm text-blue-600 hover:underline">Refresh</button>
+                  </div>
+                  <p *ngIf="captchaError" class="text-red-500 text-xs italic mt-2">Incorrect answer. Please try again.</p>
+                </div>
+
                 <div class="flex items-center justify-between">
-                    <button class="bg-[#0C1647] hover:bg-blue-800 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
+                    <button class="bg-[#0C1647] hover:bg-blue-800 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
                         Send Message
                     </button>
+                </div>
+
+                <div *ngIf="successMessage" class="mt-4 p-3 bg-green-100 text-green-700 rounded">
+                  Message sent successfully!
                 </div>
             </form>
         </div>
