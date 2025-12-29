@@ -1,19 +1,15 @@
-import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, ViewChild, OnInit, OnDestroy } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { HomeComponent } from '../home/home.component';
-interface Notification {
-  id: number;
-  title: string;
-  message: string;
-
-}
+import { NotificationService, Notification } from '../../services/notification.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-layout',
   templateUrl: './layout.component.html',
   styleUrls: ['./layout.component.css']
 })
-export class LayoutComponent {
+export class LayoutComponent implements OnInit, OnDestroy {
   isSidebarOpen = false;
   // notifications: Notification[] = [];
   isNotificationPanelOpen = false;
@@ -24,9 +20,26 @@ export class LayoutComponent {
     { id: 4, title: 'Promotion', message: 'Check out our new promotions for this week!' },
     { id: 5, title: 'Alert', message: 'Your password will expire in 3 days.' }
   ];
+  private subscription: Subscription = new Subscription();
 
   @ViewChild('notificationPanel') notificationPanel!: ElementRef
   @ViewChild('notificationButton') notificationButton!: ElementRef;
+
+  constructor(private notificationService: NotificationService) {}
+
+  ngOnInit() {
+    this.subscription.add(
+      this.notificationService.notification$.subscribe(notification => {
+        // Add new notification to the beginning of the list
+        this.notifications.unshift(notification);
+        // Optionally open the panel or show an indicator (not requested but good UX)
+      })
+    );
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
 
   // Show a new notification
   toggleNotificationPanel() {

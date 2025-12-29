@@ -1,5 +1,6 @@
 import { Component,OnInit } from '@angular/core';
 import { ApiService } from '../../services/api.service';
+import { NotificationService } from '../../services/notification.service';
 
 @Component({
   selector: 'app-home',
@@ -36,7 +37,7 @@ popupMessage = '';
   userName:string = ''
   // imageUrl = 'http://app.salesxceed.com/purchasemanager'
 
-  constructor(private authService: ApiService) {}
+  constructor(private authService: ApiService, private notificationService: NotificationService) {}
 
   ngOnInit() {
     debugger
@@ -298,6 +299,7 @@ popupMessage = '';
 this.authService.RedemptionRequest(payload).subscribe(
   (response) => {
     this.closeRedemptionPopup();
+    this.notificationService.addNotification('Redemption Successful', `You have redeemed ${this.redeemPoints} points.`);
     this.loadPointsData(this.userData.ContactId);
 
   },
